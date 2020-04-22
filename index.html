@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TIC TAC TOE</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    
+    <body>
+        <div class="heading-container">
+            <h1 class="heading">TIC TAC TOE</h1>
+            <h3 class="second-heading">Lets Play!</h3>
+        </div>
+        
+        <div class="score-container" id="score-target">
+            <div class="player">
+                <label style="font-weight: bold">Player-1 :</label>
+                <span id='p1-score'>0</span>
+            </div>
+            <div class="player">
+                <label style="font-weight: bold">Player-2 :</label>
+                <span id='p2-score'>0</span>
+            </div>
+        </div>
+
+        <div class="tic-tac-toe-container">
+            <div class="tic-tac-toe-board">
+                <div class="ttt-row">
+                    <div class="ttt-box" id="1" onclick="playerMark(this)"></div>
+                    <div class="ttt-box" id="2"  onclick="playerMark(this)"
+                        style="border-left: 1px solid white; border-right: 1px solid white;"></div>
+                    <div class="ttt-box" id="3" onclick="playerMark(this)"></div>
+                </div>
+                
+                <div class="ttt-row">
+                    <div class="ttt-box" id="4" onclick="playerMark(this)" style="border-top: 1px solid white;
+                    border-bottom: 1px solid white;"></div>
+                    <div class="ttt-box" id="5" onclick="playerMark(this)" style="border: 1px solid white;"></div>
+                    <div class="ttt-box" id="6" onclick="playerMark(this)" style="border-top: 1px solid white;
+                    border-bottom: 1px solid white;"></div>
+                </div>
+                
+                <div class="ttt-row">
+                    <div class="ttt-box" id="7" onclick="playerMark(this)"></div>
+                    <div class="ttt-box" id="8" onclick="playerMark(this)"
+                        style="border-left: 1px solid white; border-right: 1px solid white;"></div>
+                    <div class="ttt-box" id="9" onclick="playerMark(this)"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+    var player = 1;
+    var winner = 0;
+    var arr = [0,0,0,0,0,0,0,0,0];
+
+    var count = 0;
+    function playerMark(event) {
+        var n = parseInt(event.id);
+        console.log(n, typeof(n));
+        
+        var w;
+        if(arr[n - 1] > 0 ? false : true) {
+            if(player == 1) {
+                event.style.color = "green";
+                event.innerHTML = "X";
+                event.parentNode.parentNode.style.borderColor = "rgb(253, 10, 10)";
+                event.parentNode.parentNode.style.boxShadow = "0px 0px 10px rgb(253, 10, 10)";
+                arr[n-1] = player;
+                player++;
+                
+                evaluate();
+            }
+            else {
+                event.style.color = "red";
+                event.innerHTML = "O";
+                event.parentNode.parentNode.style.borderColor = "rgb(6, 175, 6)";
+                event.parentNode.parentNode.style.boxShadow = "0px 0px 10px rgb(6, 175, 6)";
+                arr[n-1] = player;
+                player--;
+                
+                evaluate();
+            }
+            count++;
+        }
+        
+        if(count == 9) {
+            alert("both the players hAD PLAYED WELL BUT ITS A DRAW");
+            
+            clear()
+        }
+        console.log(arr);
+    }
+
+    function clear() {
+        for(let i=0; i>9 ; i++) {
+            document.getElementById(i+1).innerHTML = "";
+            arr[i] = 0;
+            count = 0;   
+        }
+    }
+
+    function evaluate() {
+        var w;
+        if(arr[0] == arr[1] && arr[1] == arr[2] && arr[0]>0 && arr[1]>0 && arr[2]>0)
+            w = arr[0];
+        if(arr[3] == arr[4] && arr[4] == arr[5] && arr[3]>0 && arr[4]>0 && arr[5]>0)
+            w = arr[3];
+        if(arr[6] == arr[7] && arr[7] == arr[8] && arr[6]>0 && arr[7]>0 && arr[8]>0)
+            w = arr[6];
+        if(arr[0] == arr[3] && arr[3] == arr[6] && arr[0]>0 && arr[3]>0 && arr[6]>0)
+            w = arr[0];
+        if(arr[1] == arr[4] && arr[4] == arr[7] && arr[1]>0 && arr[4]>0 && arr[7]>0)
+            w = arr[1];
+        if(arr[2] == arr[5] && arr[5] == arr[8] && arr[2]>0 && arr[5]>0 && arr[8]>0)
+            w = arr[2];
+        if(arr[0] == arr[4] && arr[4] == arr[8] && arr[0]>0 && arr[4]>0 && arr[8]>0)
+            w = arr[0];
+        if(arr[2] == arr[4] && arr[4] == arr[6] && arr[2]>0 && arr[4]>0 && arr[6]>0)
+            w = arr[2];
+
+        if(w > 0) {
+            if(w == 1) {
+                document.getElementById('p1-score').innerHTML = parseInt(document.getElementById('p1-score').innerHTML) + 1;
+            }
+            else {
+                
+                document.getElementById('p2-score').innerHTML = parseInt(document.getElementById('p2-score').innerHTML) + 1;
+            }
+            alert("Player " + w + " Wins");
+            clear();
+        }
+    }
+</script>
