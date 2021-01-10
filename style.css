@@ -39,12 +39,21 @@ body {
     text-align: center;
 }
 
+.p1 {
+    color: rgb(253, 10, 10);
+}
+
+.p2 {
+    color: rgb(6, 175, 6);
+}
+
 /* This is ID wise styling */
 #score-target { /* Outer Div */
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: inherit;
+    flex-wrap: wrap;
 }
 
 .tic-tac-toe-container {
@@ -84,5 +93,10 @@ body {
     .ttt-box {
         width: 20vw;
         height: 20vw;
+    }
+
+    .player{
+        width: 40%;
+        margin: 5px;
     }
 }
